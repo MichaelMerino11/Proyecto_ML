@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UPScholar – Resultados TF-IDF</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body class="google-body">
+    <header class="top-bar">
+      <a href="/buscador" class="back-link">← Buscar con TF-IDF</a>
+      <span class="top-title">Resultados</span>
+    </header>
+
+    <div class="contenido">
+      <h2 class="query-title">
+        Resultados para: <span class="query-term">"{{ consulta }}"</span>
+      </h2>
+
+      <br />
+
+      {% for r in resultados %}
+      <div class="result-item">
+        <p class="score">Score: {{ "%.4f"|format(r.score) }}</p>
+
+        <a class="result-title">{{ r.titulo }}</a>
+
+        <p class="result-snippet">{{ r.abstract }}</p>
+
+        <div class="related-box">
+          <p class="related-title">Documentos relacionados</p>
+          <ul>
+            {% for doc in r.relacionados %}
+            <li>{{ doc.titulo }} ({{ "%.4f"|format(doc.score) }})</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <hr />
+      {% endfor %}
+    </div>
+  </body>
+</html>

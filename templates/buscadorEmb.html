@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UPScholar – Búsqueda Semántica Embeddings</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body class="google-body">
+    <header class="top-bar">
+      <a href="/" class="back-link">← Inicio</a>
+      <span class="top-title">UPScholar – Embeddings</span>
+    </header>
+
+    <div class="enhanced-search-container">
+      <h1 class="enhanced-title">Búsqueda Embeddings</h1>
+      <p class="enhanced-subtitle">
+        Encuentra artículos por significado, no por coincidencia de palabras,
+        usando modelos de lenguaje modernos.
+      </p>
+
+      <form
+        action="/buscar_embedding"
+        method="POST"
+        class="enhanced-search-box"
+      >
+        <div class="search-icon-box">
+          <input
+            type="text"
+            name="consulta"
+            class="enhanced-input"
+            placeholder="Describe tu idea o pregunta en lenguaje natural…"
+            required
+          />
+        </div>
+
+        <button type="submit" class="enhanced-btn">
+          Buscar
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UPScholar - Buscador Académico</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body class="google-body">
+    <div class="google-center">
+      <!-- Logo estilo Google -->
+      <h1 class="google-logo">
+        <span class="g1">U</span><span class="g2">P</span
+        ><span class="g3">S</span><span class="g4">cholar</span>
+      </h1>
+
+      <!-- Subtítulo minimalista -->
+      <p class="google-subtitle">
+        Buscador académico basado en TF-IDF y Embeddings
+      </p>
+
+      <!-- Contenedor de botones estilo Google -->
+      <div class="google-buttons">
+        <a class="google-btn" href="/buscador">Buscar con TF-IDF</a>
+        <a class="google-btn" href="/buscador_embedding"
+          >Buscar con Embeddings</a
+        >
+      </div>
+    </div>
+
+    <footer class="google-footer">
+      © 2025 UPScholar — Proyecto de Machine Learning
+    </footer>
+  </body>
+</html>

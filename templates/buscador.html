@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UPScholar – Motor de Búsqueda TF-IDF</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body class="google-body">
+    <header class="top-bar">
+      <a href="/" class="back-link">← Inicio</a>
+      <span class="top-title">UPScholar – Modelo TF-IDF</span>
+    </header>
+
+    <div class="enhanced-search-container">
+      <h1 class="enhanced-title">Motor de Búsqueda TF-IDF</h1>
+      <p class="enhanced-subtitle">
+        Encuentra artículos relevantes según la importancia estadística de los
+        términos en los documentos.
+      </p>
+
+      <form action="/buscar" method="POST" class="enhanced-search-box">
+        <div class="search-icon-box">
+          <input
+            type="text"
+            name="consulta"
+            class="enhanced-input"
+            placeholder="Escribe un tema, palabra clave o expresión…"
+            required
+          />
+        </div>
+
+        <button type="submit" class="enhanced-btn">Buscar documentos</button>
+      </form>
+    </div>
+  </body>
+</html>
