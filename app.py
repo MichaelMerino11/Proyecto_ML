@@ -62,7 +62,7 @@ def buscar_documentos_embedding(query, top_k=10):
 
     # ordenar documentos de mayor similitud a menor
     indices = np.argsort(similitudes)[::-1]
-    print(f"DEBUG: Indices: {indices.shape}")
+    #print(f"DEBUG: Indices: {indices.shape}")
 
     resultados = []
     for i in indices[:10]:

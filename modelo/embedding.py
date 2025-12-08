@@ -34,28 +34,11 @@ def normalizar_embeddings(embeddings):
     norms = np.where(norms == 0, 1, norms)  # evitar división por cero
     return embeddings / norms
 
-#tokenizer = AutoTokenizer.from_pretrained("intfloat/e5-base")
-#model = AutoModel.from_pretrained("intfloat/e5-base")
-#model.eval()
-
-"""def embed_e5(text):
-    inp = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
-    with torch.no_grad():
-        out = model(**inp).last_hidden_state
-    emb = out.mean(dim=1)  # average pooling
-    return emb.squeeze().numpy()"""
-
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
 def procesar_todo_emb():
-    #embeddings = []
-
-    #for abs_text in abstracts:
-     #   emb = embed_e5("passage: " + abs_text)
-      #  embeddings.append(emb)
-
-    #embeddings = np.array(embeddings)
+  
     embeddings = model.encode(abstracts, show_progress_bar=True)
     #print(f"DEBUG: Shape de embeddings: {embeddings.shape}")
     embeddings_norm = normalizar_embeddings(embeddings)
@@ -74,7 +57,6 @@ def procesar_todo_emb():
     return data
 
 def procesar_query_emb(query, embeddings_norm):
-    #query_emb = embed_e5("query: " + query)
     query_emb = model.encode(query)
     #print(f"DEBUG: Shape query_emb: {query_emb.shape}")
 
