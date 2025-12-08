@@ -124,4 +124,4 @@ def buscar_embedding():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=5001, debug=True)

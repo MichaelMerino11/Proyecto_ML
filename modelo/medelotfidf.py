@@ -11,11 +11,11 @@ dataframe = pd.read_csv('modelo/Papers.csv', encoding='latin-1')
 dataframe.head()
 
 titles = dataframe['title'].values
-print(titles.shape)
+#print(titles.shape)
 keywords = dataframe['keywords'].values
-print(titles.shape)
+#print(titles.shape)
 abstract = dataframe['abstract'].values
-print(abstract.shape)
+#print(abstract.shape)
 
 #=========================== Preposesamiento (NLP) =======================# 
 def normalizacion(texto):
@@ -80,7 +80,7 @@ def bolsa_de_palabras(coleccion, num_documents):
 
 #--TF-IDF--
 def TFIDF(M):
-    Wtf = np.where(M > 0, 1 + np.log10(M), 0)
+    Wtf = np.where(M > 0, 1 + np.log10(M+1), 0)
     df = np.count_nonzero(M, axis=1).reshape(-1, 1)
     idf = np.log10(M.shape[1] / df)
     return Wtf * idf
@@ -105,19 +105,19 @@ def procesar_abstract():
 
 # ======================= MEDIR TIEMPOS ============================ #
 
-start = time.time(); ms_titulos = procesar_titulos(); time_t = time.time() - start
-start = time.time(); ms_keywords = procesar_keywords(); time_k = time.time() - start
-start = time.time(); ms_abstract = procesar_abstract(); time_a = time.time() - start
-start = time.time(); ms_total = 0.15*ms_titulos + 0.25*ms_keywords + 0.6*ms_abstract; time_s = time.time() - start
+#start = time.time(); ms_titulos = procesar_titulos(); time_t = time.time() - start
+#start = time.time(); ms_keywords = procesar_keywords(); time_k = time.time() - start
+#start = time.time(); ms_abstract = procesar_abstract(); time_a = time.time() - start
+#start = time.time(); ms_total = 0.15*ms_titulos + 0.25*ms_keywords + 0.6*ms_abstract; time_s = time.time() - start
 
 # ======================== RESULTADOS =============================== #
 
-print(f"Tiempo Titulos: {time_t:.4f} s")
-print(f"Tiempo Keywords: {time_k:.4f} s")
-print(f"Tiempo Abstract TF-IDF: {time_a:.4f} s")
-print(f"Tiempo Suma Ponderada: {time_s:.6f} s")
-tiempo_total = time_t + time_k + time_a + time_s
-print(f"Tiempo Total: {tiempo_total:.6f} s")
+#print(f"Tiempo Titulos: {time_t:.4f} s")
+#print(f"Tiempo Keywords: {time_k:.4f} s")
+#print(f"Tiempo Abstract TF-IDF: {time_a:.4f} s")
+#print(f"Tiempo Suma Ponderada: {time_s:.6f} s")
+#tiempo_total = time_t + time_k + time_a + time_s
+#print(f"Tiempo Total: {tiempo_total:.6f} s")
 #---- imprimir matrices ----#
 #print("Matriz de similitud de Jaccard:")
 #print(procesar_titulos())
