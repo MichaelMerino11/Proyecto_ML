@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import numpy as np
+import time
 from modelo.medelotfidf import procesar_todo, procesar_query
 from modelo.embedding import procesar_todo_emb, procesar_query_emb, normalizar_embeddings
 
@@ -25,6 +26,7 @@ print("Listo. Sistema cargado.")
 # 
 # ===========BÚSQUEDA TF-IDF===============
 def buscar_documentos(query, top_k=10):
+    inicio = time.time()  # medir tiempo desde aquí
     similitudes = procesar_query(query)
 
     similitudes = np.asarray(similitudes).flatten()
@@ -53,11 +55,16 @@ def buscar_documentos(query, top_k=10):
             "score": float(similitudes[i]),
             "relacionados": relacionados
         })
+    tiempo_total = time.time() - inicio
+    tiempo_total = round(tiempo_total, 5)
+    print(f"Tiempo búsqueda TF-IDF: {tiempo_total:.6f} s")
 
-    return resultados
+
+    return resultados, tiempo_total
 
 # ===========BÚSQUEDA EMBEDDING===============
 def buscar_documentos_embedding(query, top_k=10):
+    inicio = time.time()
     similitudes = procesar_query_emb(query, normalizar_embeddings(emmbeddings_norm))
 
     # ordenar documentos de mayor similitud a menor
@@ -85,9 +92,11 @@ def buscar_documentos_embedding(query, top_k=10):
             "score": float(similitudes[i]),
             "relacionados": relacionados
         })
+    tiempo_total = time.time() - inicio
+    tiempo_total = round(tiempo_total, 5)
+    print(f"Tiempo búsqueda Embedding: {tiempo_total:.6f} s")
 
-    return resultados
-
+    return resultados, tiempo_total
 
 # RUTAS FLASK
 # ==========================
@@ -104,10 +113,11 @@ def buscar():
     query = request.form["consulta"]
     #print(f"DEBUG: Consulta recibida: {query}")
 
-    resultados = buscar_documentos(query)
+    resultados, tiempo = buscar_documentos(query)
     return render_template("resultados.html",
                            consulta=query,
-                           resultados=resultados)
+                           resultados=resultados,
+                           tiempo=tiempo)
 
 @app.route("/buscador_embedding")
 def buscador_embedding():
@@ -117,10 +127,11 @@ def buscador_embedding():
 def buscar_embedding():
     query = request.form["consulta"]
     #print(f"DEBUG: Consulta recibida: {query}")
-    resultados = buscar_documentos_embedding(query, emmbeddings_norm)
-    return render_template("resultados.html",
+    resultados, tiempo = buscar_documentos_embedding(query, emmbeddings_norm)
+    return render_template("resultadoemb.html",
                            consulta=query,
-                           resultados=resultados)
+                           resultados=resultados,
+                           tiempo=tiempo)
 
 
 if __name__ == "__main__":

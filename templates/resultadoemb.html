@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>UPScholar – Resultados Embeddings</title>
+    <title>UPScholar - Resultados Embeddings</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
@@ -12,8 +12,8 @@
   <body class="google-body">
     <header class="top-bar">
       <a href="/buscador_embedding" class="back-link"
-        >← Buscar con Embeddings</a
-      >
+        >← Buscar con Embeddings</a>
+        <a href="/" class="back-link">← Inicio</a>
       <span class="top-title">Resultados</span>
     </header>
 
@@ -22,8 +22,9 @@
         Resultados para: <span class="query-term">"{{ consulta }}"</span>
       </h2>
 
-      <br />
-
+      <br/>
+      <p>Tiempo aproximado de busqueda: {{tiempo}} s</p>
+      <br/>
       {% for r in resultados %}
       <div class="result-item">
         <p class="score">Score: {{ "%.4f"|format(r.score) }}</p>

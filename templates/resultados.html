@@ -12,6 +12,7 @@
   <body class="google-body">
     <header class="top-bar">
       <a href="/buscador" class="back-link">← Buscar con TF-IDF</a>
+      <a href="/" class="back-link">← Inicio</a>
       <span class="top-title">Resultados</span>
     </header>
 
@@ -20,8 +21,9 @@
         Resultados para: <span class="query-term">"{{ consulta }}"</span>
       </h2>
 
-      <br />
-
+      <br/>
+      <p>Tiempo aproximado de busqueda: {{tiempo}} s</p>
+      <br/>
       {% for r in resultados %}
       <div class="result-item">
         <p class="score">Score: {{ "%.4f"|format(r.score) }}</p>
