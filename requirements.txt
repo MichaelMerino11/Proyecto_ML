@@ -1,0 +1,10 @@
+pandas>=
+numpy
+nltk
+
+torch
+sentence_transformers import 
+SentenceTransformer
+transformers 
+AutoTokenizer
+AutoModel

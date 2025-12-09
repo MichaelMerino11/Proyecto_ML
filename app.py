@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 import numpy as np
 import time
 from modelo.medelotfidf import procesar_todo, procesar_query
-from modelo.embedding import procesar_todo_emb, procesar_query_emb, normalizar_embeddings
+from modelo.embedding import procesar_todo_emb, procesar_query_emb
 
 app = Flask(__name__)
 print("Procesando TF-IDF y matrices...")
@@ -63,9 +63,10 @@ def buscar_documentos(query, top_k=10):
     return resultados, tiempo_total
 
 # ===========BÚSQUEDA EMBEDDING===============
-def buscar_documentos_embedding(query, top_k=10):
+def buscar_documentos_embedding(query):
     inicio = time.time()
-    similitudes = procesar_query_emb(query, normalizar_embeddings(emmbeddings_norm))
+
+    similitudes = procesar_query_emb(query, emmbeddings_norm)
 
     # ordenar documentos de mayor similitud a menor
     indices = np.argsort(similitudes)[::-1]
@@ -92,6 +93,7 @@ def buscar_documentos_embedding(query, top_k=10):
             "score": float(similitudes[i]),
             "relacionados": relacionados
         })
+
     tiempo_total = time.time() - inicio
     tiempo_total = round(tiempo_total, 5)
     print(f"Tiempo búsqueda Embedding: {tiempo_total:.6f} s")
@@ -127,12 +129,11 @@ def buscador_embedding():
 def buscar_embedding():
     query = request.form["consulta"]
     #print(f"DEBUG: Consulta recibida: {query}")
-    resultados, tiempo = buscar_documentos_embedding(query, emmbeddings_norm)
+    resultados, tiempo_emb = buscar_documentos_embedding(query)
     return render_template("resultadoemb.html",
                            consulta=query,
                            resultados=resultados,
-                           tiempo=tiempo)
-
+                           tiempo=tiempo_emb)
 
 if __name__ == "__main__":
     app.run(port=5001, debug=True)
