@@ -1,10 +1,7 @@
-pandas>=
+pandas
 numpy
 nltk
-
 torch
-sentence_transformers import 
-SentenceTransformer
-transformers 
-AutoTokenizer
-AutoModel
+sentence-transformers
+transformers
+time
